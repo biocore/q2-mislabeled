@@ -36,7 +36,7 @@ plugin.register_artifact_class(
 plugin.pipelines.register_function(
     name="Within dataset mislabelings",
     description="Identify mislabelings and contaminated samples within a "
-                "specific dataset",
+                "specific dataset based on the HMP SOP",
     function=q2_mislabeled.within_dataset,
     inputs={'table': FeatureTable[Frequency]},
     parameters={'alleged_min_probability': Float,
