@@ -34,7 +34,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     # From the HMP SOP
     # Drop all OTUs present in less than 1% of the samples:
     filttab, = feat_filter(raretab, min_samples=int(nsamp * 0.01))
-    _, feat, prob = classifier(raretab, env, n_jobs=n_jobs)
+    _, feat, prob = classifier(filttab, env, n_jobs=n_jobs)
     prob_df = prob.view(pd.DataFrame)
 
     # gather our probabilities, and store the alleged probability for the
@@ -114,7 +114,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     # with 'NA' when 'Mislabeled' is 'TRUE' or 'NA', 'TRUE' when 'Mislabeled'
     # is FALSE and 'Max_Proportion_this_Env' < .6, and 'FALSE' otherwise.
     env_df['Contaminated'] = False
-    env_df.loc[prob_below_min, 'Contaminated'] = 'NA'
+    env_df.loc[prob_below_min, 'Contaminated'] = 'Not applicable'
     contaminated = comm_below_min & (~prob_below_min.loc[overlap])
     contaminated_samples = contaminated[contaminated].index
     env_df.loc[contaminated_samples, 'Contaminated'] = True
