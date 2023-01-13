@@ -52,6 +52,10 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     env_df.loc[prob_below_min, 'Mislabeled'] = True
     env_df.loc[~prob_below_min, 'Mislabeled'] = False
 
+    # qiime2.Metadata cannot handle bool dtype which would occur if no
+    # samples are dropped from rarefaction
+    env_df['Mislabeled'] = env_df['Mislabeled'].astype(str)
+
     # record what we believe the correct label to be. for mislabeled samples,
     # pull the most probable label. For non-mislabeled samples, record the
     # original label
@@ -113,6 +117,10 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     contaminated = comm_below_min & (~prob_below_min.loc[overlap])
     contaminated_samples = contaminated[contaminated].index
     env_df.loc[contaminated_samples, 'Contaminated'] = True
+
+    # qiime2.Metadata cannot handle bool, which would happen in an unusual
+    # edge case here but let's protect ourselves anyway
+    env_df['Contaminated'] = env_df['Contaminated'].astype(str)
 
     mislabelings = qiime2.Artifact.import_data('SampleData[Mislabeled]',
                                                env_df)
