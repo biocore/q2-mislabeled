@@ -6,6 +6,7 @@ qiime mislabeled within-dataset \
    --m-env-file mvp_problematic.tsv \
    --o-mislabelings test_run.qza \
    --m-env-column env_package \
+   --p-n-jobs 2 \
    --verbose
 
 python assess-test-run.py
