@@ -2,8 +2,8 @@
 source activate qiime2-2022.11
 
 qiime mislabeled within-dataset \
-   --i-table tmi_16s_problematic.biom.qza \
-   --m-env-file tmi_16s_problematic.tsv \
+   --i-table mvp_problematic.biom.qza \
+   --m-env-file mvp_problematic.tsv \
    --o-mislabelings test_run.qza \
    --m-env-column env_package \
    --verbose
