@@ -7,7 +7,7 @@
 # ----------------------------------------------------------------------------
 from .plugin_setup import plugin
 import pandas as pd
-from ._format import TSVDirectoryFormat, TSVFormat
+from ._format import TSVFormat
 
 
 @plugin.register_transformer
@@ -23,13 +23,3 @@ def _2(data: pd.DataFrame) -> TSVFormat:
     with ff.open() as fh:
         data.to_csv(fh, sep='\t', index=True, header=True)
     return ff
-
-
-#@plugin.register_transformer
-#def _3(data: pd.DataFrame) -> TSVDirectoryFormat:
-#    what = TSVDirectoryFormat()
-#    print(what)
-#    print(dir(what))
-#    with what.open() as hope:
-#        hope.to_csv(hope, sep='\t', index=True, header=True)
-#    return what

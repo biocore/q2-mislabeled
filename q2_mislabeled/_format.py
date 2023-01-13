@@ -7,7 +7,6 @@
 # ----------------------------------------------------------------------------
 
 import qiime2.plugin.model as model
-import qiime2
 
 
 class TSVFormat(model.TextFileFormat):
@@ -15,6 +14,7 @@ class TSVFormat(model.TextFileFormat):
               'min_proportion',
               'Mislabeled',
               'Contaminated'}
+
     def sniff(self):
         with self.open() as fh:
             header = fh.readline()

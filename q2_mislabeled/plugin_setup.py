@@ -12,7 +12,7 @@ from q2_types.feature_table import FeatureTable, Frequency
 from q2_types.sample_data import SampleData
 
 from ._types import Mislabeled
-from ._format import TSVDirectoryFormat, TSVFormat
+from ._format import TSVDirectoryFormat
 import q2_mislabeled
 
 
@@ -30,8 +30,6 @@ plugin.register_formats(TSVDirectoryFormat)
 plugin.register_artifact_class(
     SampleData[Mislabeled],
     directory_format=TSVDirectoryFormat)
-#plugin.register_semantic_type_to_format(Mislabeled,
-#                                        artifact_format=TSVDirectoryFormat)
 
 plugin.pipelines.register_function(
     name="Within dataset mislabelings",

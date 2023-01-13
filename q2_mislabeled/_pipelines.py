@@ -10,6 +10,7 @@ import pandas as pd
 import qiime2
 import biom
 
+
 # defaults from HMP SOP
 # https://www.hmpdacc.org/hmp/doc/QiimeCommunityProfiling.pdf
 def within_dataset(ctx, table, env, alleged_min_probability=0.25,
@@ -60,8 +61,8 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     # pull the most probable label. For non-mislabeled samples, record the
     # original label
     env_df['corrected_label'] = 'Not applicable'
-    mislabeled = env_df[env_df['Mislabeled'] == True]
-    notmislabeled = env_df[env_df['Mislabeled'] == False]
+    mislabeled = env_df[env_df['Mislabeled'] == 'True']
+    notmislabeled = env_df[env_df['Mislabeled'] == 'False']
 
     env_df.loc[mislabeled.index, 'corrected_label'] = \
         [prob_df.loc[r.Index].idxmax()
@@ -102,7 +103,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     overlap = [i for i in env_df.index if i in proportions_df.index]
     env_df.loc[overlap, 'min_proportion'] = \
         [proportions_df.loc[r.Index, getattr(r, c)]
-          for r in env_df.loc[overlap].itertuples()]
+         for r in env_df.loc[overlap].itertuples()]
     comm_below_min = env_df.loc[overlap, 'min_proportion'] < env_min_proportion
 
     # From the HMP SOP
