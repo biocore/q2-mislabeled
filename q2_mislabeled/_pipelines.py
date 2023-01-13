@@ -59,13 +59,13 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     mislabeled = env_df[env_df['Mislabeled'] == True]
     notmislabeled = env_df[env_df['Mislabeled'] == False]
 
-    env_df.loc[mislabeled, 'corrected_label'] = \
+    env_df.loc[mislabeled.index, 'corrected_label'] = \
         [prob_df.loc[r.Index].idxmax()
-         for r in env_df.loc[mislabeled].itertuples()]
+         for r in env_df.loc[mislabeled.index].itertuples()]
 
-    env_df.loc[notmislabeled, 'corrected_label'] = \
+    env_df.loc[notmislabeled.index, 'corrected_label'] = \
         [prob_df.loc[r.Index].idxmax()
-         for r in env_df.loc[notmislabeled].itertuples()]
+         for r in env_df.loc[notmislabeled.index].itertuples()]
 
     # We deviate slightly from the HMP SOP here. Specifically, instead of
     # creating a copy of the mapping file, we augment our mapping file with
