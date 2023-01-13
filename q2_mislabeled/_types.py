@@ -6,8 +6,8 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 
-from ._pipelines import within_dataset
-from . import _version
-__version__ = _version.get_versions()['version']
+from qiime2.plugin import SemanticType
+from q2_types.sample_data import SampleData
 
-__all__ = ['within_dataset', ]
+Mislabeled = SemanticType('Mislabeled',
+                          variant_of=SampleData.field['type'])
