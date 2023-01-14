@@ -107,7 +107,6 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
         focus_env_df.rename(columns={focus_column: ref_column}, inplace=True)
 
     env_df = pd.concat([focus_env_df, ref_env_df])
-    env = qiime2.Metadata(env_df)
 
     # get our table dimensions
     ref_nfeat, ref_nsamp = reference.view(biom.Table).shape

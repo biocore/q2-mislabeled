@@ -29,6 +29,9 @@ for r in input_md.itertuples():
 input_md = pd.read_csv('tmi_problematic.tsv', sep='\t').set_index('#SampleID')
 result_md = qiime2.Artifact.load('against_test_run.qza').view(pd.DataFrame)
 
+# we should not have reference samples in our result
+assert set(input_md.index) == set(result_md.index)
+
 for r in input_md.itertuples():
     if r.intentional_mislabel:
         incorrect = r.env_package

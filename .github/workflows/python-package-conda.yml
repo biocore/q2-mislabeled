@@ -38,6 +38,7 @@ jobs:
     - name: Test with pytest
       run: |
         source activate test-env
+        pytest
         bash test.sh
   lint:
     runs-on: ubuntu-latest
