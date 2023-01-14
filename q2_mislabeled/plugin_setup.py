@@ -57,4 +57,35 @@ plugin.pipelines.register_function(
                                          'mislabelings per sample'}
 )
 
+plugin.pipelines.register_function(
+    name="Against dataset mislabelings",
+    description="Identify mislabemings and contaminated samples using a "
+                "separate dataset as a reference.",
+    function=q2_mislabeled.against_dataset,
+    inputs={'focus': FeatureTable[Frequency],
+            'reference': FeatureTable[Frequency]},
+    parameters={'alleged_min_probability': Float,
+                'env_min_proportion': Float,
+                'focus_env': MetadataColumn[Categorical],
+                'reference_env': MetadataColumn[Categorical],
+                'n_jobs': Int},
+    outputs=[('mislabelings', SampleData[Mislabeled])],
+    input_descriptions={'focus': 'The feature table to examine',
+                        'reference': 'The reference feature table'},
+    parameter_descriptions={
+        'alleged_min_probability': 'The minimum probability a sample must '
+                                   'must have from classification to be '
+                                   'considered correctly classified.',
+        'env_min_proportion': 'The minimum environment proportion a sample '
+                              'must have from source tracking to be '
+                              'considered correctly classified',
+        'focus_env': 'The column in the focus metadata with the variable to '
+                     'assess mislabelings with',
+        'reference_env': 'The column in the reference metadata with the '
+                         'variable to assess mislabelings with',
+        'n_jobs': 'The number of CPUs to use'},
+    output_descriptions={'mislabelings': 'A tabular file describing '
+                                         'mislabelings per sample'}
+)
+
 importlib.import_module('q2_mislabeled._transformers')
