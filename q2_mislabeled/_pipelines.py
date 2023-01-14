@@ -38,14 +38,15 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     _, feat, prob = classifier(filttab, env, n_jobs=n_jobs)
     prob_df = prob.view(pd.DataFrame)
 
-    prob_below_min = _set_mislabeled(env_df, prob_df, c,
-                                     alleged_min_probability)
-
     # We deviate slightly from the HMP SOP here. Specifically, instead of
     # creating a copy of the mapping file, we augment our mapping file with
     # what samples are below our probability threshold. As the HMP SOP notes,
     # the contaminatin check is then run "...for all remaining samples..."
-    env_df['SourceSink'] = ['sink' if v else 'source' for v in prob_below_min]
+    prob_below_min = _set_mislabeled(env_df, prob_df, c,
+                                     alleged_min_probability)
+
+    env_df.loc[prob_below_min.index, 'SourceSink'] = ['sink' if v else 'source'
+                                                      for v in prob_below_min]
 
     # From the HMP SOP:
     # Reduce number of features further before running SourceTracker
