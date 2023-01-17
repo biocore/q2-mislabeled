@@ -65,7 +65,8 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
 
     # Run source tracker in leave-one-out mode. We are disabling rarefaction
     # as that's already been resolved.
-    proportions, _, _, _ = st(refilttab, qiime2.Metadata(env_df), jobs=n_jobs,
+    st_metadata = qiime2.Metadata(env_df[['SourceSink', c]])
+    proportions, _, _, _ = st(refilttab, st_metadata, jobs=n_jobs,
                               source_category_column=c, loo=True,
                               source_rarefaction_depth=0,
                               sink_rarefaction_depth=0)
@@ -169,6 +170,7 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
 
     # Run source tracker. We are disabling rarefaction
     # as that's already been resolved.
+    st_metadata = qiime2.Metadata(env_df[['SourceSink', ref_column]])
     proportions, _, _, _ = st(merged, qiime2.Metadata(env_df), jobs=n_jobs,
                               source_category_column=ref_column, loo=False,
                               source_rarefaction_depth=0,
