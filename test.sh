@@ -1,5 +1,8 @@
 #!/bin/bash
-source activate qiime2-2022.11
+source activate test-env
+
+set -x
+set -e
 
 qiime mislabeled within-dataset \
    --i-table mvp_problematic.biom.qza \
