@@ -1,0 +1,76 @@
+#SampleID	host_body_site	host_body_habitat	env_package	intentional_mislabel	intentional_contamination	original_env_package
+10317.000114854	UBERON:feces	UBERON:feces	human-oral	True	False	human-gut
+10317.000023729	UBERON:tongue	UBERON:oral cavity	human-gut	True	False	human-oral
+10317.000007829	UBERON:skin of head	UBERON:skin	human-gut	True	False	human-skin
+10317.000096983	UBERON:nostril	UBERON:nose	human-oral	True	False	human-skin
+10317.000078765	UBERON:feces	UBERON:feces	human-skin	True	False	human-gut
+10317.000092810	UBERON:tongue	UBERON:oral cavity	human-skin	True	False	human-oral
+10317.000007131	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000049806	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000030626	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.X00175353	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000002771	UBERON:tongue	UBERON:oral cavity	human-oral	False	True	human-oral
+10317.000051534	UBERON:skin of head	UBERON:skin	human-skin	False	True	human-skin
+10317.000007248	UBERON:skin of hand	UBERON:skin	human-skin	False	True	human-skin
+10317.000030690	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000097390	UBERON:skin of head	UBERON:skin	human-skin	False	True	human-skin
+10317.000068855	UBERON:skin of leg	UBERON:skin	human-skin	False	False	human-skin
+10317.000030411	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000098357	UBERON:nostril	UBERON:nose	human-skin	False	False	human-skin
+10317.000155856	UBERON:tongue	UBERON:oral cavity	human-oral	False	True	human-oral
+10317.000005431	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000151055	UBERON:tongue	UBERON:oral cavity	human-oral	False	True	human-oral
+10317.000073626	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000012621	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000050266	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000156075	UBERON:feces	UBERON:feces	human-gut	False	True	human-gut
+10317.X00163195	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000036442	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000073401	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000012445	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000007386	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000020453	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000015255	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.X00164197	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000106433	UBERON:feces	UBERON:feces	human-gut	False	True	human-gut
+10317.000013227	UBERON:feces	UBERON:feces	human-gut	False	True	human-gut
+10317.000046450	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000007289	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000098405	UBERON:nostril	UBERON:nose	human-skin	False	False	human-skin
+10317.000035471	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000001734	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000015347	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000053438	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000068983	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000098093	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000050500	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000002704	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000054278	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000082914	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000062113	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.X00191737	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000107556	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000036404	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000012439	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000098976	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000023163	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000010439	UBERON:nostril	UBERON:nose	human-skin	False	False	human-skin
+10317.000023638	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000067010	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.X00167446	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000050032	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000059915	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000063470	UBERON:skin of trunk	UBERON:skin	human-skin	False	False	human-skin
+10317.000020604	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000065484	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000076580	UBERON:tongue	UBERON:oral cavity	human-oral	False	False	human-oral
+10317.000107531	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000069596	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000036970	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000069411	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000063350	UBERON:skin of trunk	UBERON:skin	human-skin	False	False	human-skin
+10317.000015352	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000007826	UBERON:skin of head	UBERON:skin	human-skin	False	False	human-skin
+10317.000039535	UBERON:feces	UBERON:feces	human-gut	False	False	human-gut
+10317.000015171	UBERON:skin of hand	UBERON:skin	human-skin	False	False	human-skin
+10317.000063302	UBERON:skin of trunk	UBERON:skin	human-skin	False	False	human-skin
