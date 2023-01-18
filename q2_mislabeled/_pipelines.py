@@ -14,7 +14,7 @@ import biom
 # defaults from HMP SOP
 # https://www.hmpdacc.org/hmp/doc/QiimeCommunityProfiling.pdf
 def within_dataset(ctx, table, env, alleged_min_probability=0.25,
-                   env_min_proportion=0.6, n_jobs=1):
+                   env_min_proportion=0.6, n_jobs=1, sampling_depth=1000):
     feat_filter = ctx.get_action('feature_table', 'filter_features')
     rarefy = ctx.get_action('feature_table', 'rarefy')
     classifier = ctx.get_action('sample_classifier', 'classify_samples_ncv')
@@ -30,7 +30,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     # From the HMP SOP
     # Rarefy OTU tables at depth 100 (n.b., classifier is faster now so
     # we use a depth of 1000):
-    raretab, = rarefy(table, sampling_depth=1000)
+    raretab, = rarefy(table, sampling_depth=sampling_depth)
 
     # From the HMP SOP
     # Drop all OTUs present in less than 1% of the samples:
@@ -45,6 +45,9 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     prob_below_min = _set_mislabeled(env_df, prob_df, c,
                                      alleged_min_probability)
 
+    # set our source/sink variable. Note that since we are using LOO, we are
+    # only evaluating the "source" samples for contamination. In this case,
+    # that means the samples which do not appear to be mislabeled.
     env_df.loc[prob_below_min.index, 'SourceSink'] = ['sink' if v else 'source'
                                                       for v in prob_below_min]
 
@@ -57,7 +60,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
         filttab, = feat_filter(table, min_samples=min_samples)
     else:
         filttab = table
-    raretab, = rarefy(filttab, sampling_depth=1000)
+    raretab, = rarefy(filttab, sampling_depth=sampling_depth)
     if min_samples > 1:
         refilttab, = feat_filter(raretab, min_samples=min_samples)
     else:
@@ -66,10 +69,10 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
     # Run source tracker in leave-one-out mode. We are disabling rarefaction
     # as that's already been resolved.
     st_metadata = qiime2.Metadata(env_df[['SourceSink', c]])
-    proportions, _, _, _ = st(refilttab, st_metadata, jobs=n_jobs,
-                              source_category_column=c, loo=True,
-                              source_rarefaction_depth=0,
-                              sink_rarefaction_depth=0)
+    proportions, _ = st(refilttab, st_metadata, jobs=n_jobs,
+                        source_category_column=c, loo=True,
+                        source_rarefaction_depth=0,
+                        sink_rarefaction_depth=0)
     proportions_df = proportions.view(pd.DataFrame).T
 
     _set_contamination(env_df, proportions_df, c, prob_below_min,
@@ -82,7 +85,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
 
 def against_dataset(ctx, focus, reference, focus_env, reference_env,
                     alleged_min_probability=0.25, env_min_proportion=0.6,
-                    n_jobs=1):
+                    n_jobs=1, sampling_depth=1000):
     feat_filter = ctx.get_action('feature_table', 'filter_features')
     merge_tables = ctx.get_action('feature_table', 'merge')
     rarefy = ctx.get_action('feature_table', 'rarefy')
@@ -118,8 +121,8 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
     # From the HMP SOP
     # Rarefy OTU tables at depth 100 (n.b., classifier is faster now so
     # we use a depth of 1000):
-    ref_raretab, = rarefy(reference, sampling_depth=1000)
-    foc_raretab, = rarefy(focus, sampling_depth=1000)
+    ref_raretab, = rarefy(reference, sampling_depth=sampling_depth)
+    foc_raretab, = rarefy(focus, sampling_depth=sampling_depth)
 
     # From the HMP SOP
     # Drop all OTUs present in less than 1% of the samples:
@@ -153,8 +156,8 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
     else:
         foc_filttab = focus
 
-    ref_raretab, = rarefy(ref_filttab, sampling_depth=1000)
-    foc_raretab, = rarefy(foc_filttab, sampling_depth=1000)
+    ref_raretab, = rarefy(ref_filttab, sampling_depth=sampling_depth)
+    foc_raretab, = rarefy(foc_filttab, sampling_depth=sampling_depth)
 
     if ref_min_samples > 1:
         ref_refilttab, = feat_filter(ref_raretab, min_samples=ref_min_samples)
@@ -171,10 +174,10 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
     # Run source tracker. We are disabling rarefaction
     # as that's already been resolved.
     st_metadata = qiime2.Metadata(env_df[['SourceSink', ref_column]])
-    proportions, _, _, _ = st(merged, st_metadata, jobs=n_jobs,
-                              source_category_column=ref_column, loo=False,
-                              source_rarefaction_depth=0,
-                              sink_rarefaction_depth=0)
+    proportions, _ = st(merged, st_metadata, jobs=n_jobs,
+                        source_category_column=ref_column, loo=False,
+                        source_rarefaction_depth=0,
+                        sink_rarefaction_depth=0)
     proportions_df = proportions.view(pd.DataFrame).T
 
     prob_below_min = _set_mislabeled(env_df, prob_df, ref_column,

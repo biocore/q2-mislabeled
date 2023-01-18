@@ -40,7 +40,8 @@ plugin.pipelines.register_function(
     parameters={'alleged_min_probability': Float,
                 'env_min_proportion': Float,
                 'env': MetadataColumn[Categorical],
-                'n_jobs': Int},
+                'n_jobs': Int,
+                'sampling_depth': Int},
     outputs=[('mislabelings', SampleData[Mislabeled])],
     input_descriptions={'table': 'The feature table to examine'},
     parameter_descriptions={
@@ -52,7 +53,8 @@ plugin.pipelines.register_function(
                               'considered correctly classified',
         'env': 'The column in the metadata with the variable to assess '
                'mislabelings with',
-        'n_jobs': 'The number of CPUs to use'},
+        'n_jobs': 'The number of CPUs to use',
+        'sampling_depth': 'The rarefaction level to use'},
     output_descriptions={'mislabelings': 'A tabular file describing '
                                          'mislabelings per sample'}
 )
@@ -68,7 +70,8 @@ plugin.pipelines.register_function(
                 'env_min_proportion': Float,
                 'focus_env': MetadataColumn[Categorical],
                 'reference_env': MetadataColumn[Categorical],
-                'n_jobs': Int},
+                'n_jobs': Int,
+                'sampling_depth': Int},
     outputs=[('mislabelings', SampleData[Mislabeled])],
     input_descriptions={'focus': 'The feature table to examine',
                         'reference': 'The reference feature table'},
@@ -83,7 +86,8 @@ plugin.pipelines.register_function(
                      'assess mislabelings with',
         'reference_env': 'The column in the reference metadata with the '
                          'variable to assess mislabelings with',
-        'n_jobs': 'The number of CPUs to use'},
+        'n_jobs': 'The number of CPUs to use',
+        'sampling_depth': 'The rarefaction level to use'},
     output_descriptions={'mislabelings': 'A tabular file describing '
                                          'mislabelings per sample'}
 )
