@@ -9,7 +9,8 @@ import unittest
 import pandas as pd
 import pandas.testing as pdt
 
-from q2_mislabeled._pipelines import _set_mislabeled, _set_contamination
+from q2_mislabeled._pipelines import (_set_mislabeled, _set_contamination
+                                      NOT_APPLICABLE)
 
 
 class Tests(unittest.TestCase):
@@ -29,8 +30,8 @@ class Tests(unittest.TestCase):
         exp = pd.DataFrame([['foo', 'fecal', 0.6, 'False', 'fecal'],
                             ['bar', 'oral', 0.2, 'True', 'fecal'],
                             ['baz', 'skin', 0.4, 'False', 'skin'],
-                            ['extra', 'fecal', 'Not applicable',
-                             'Not applicable', 'Not applicable']],
+                            ['extra', 'fecal', NOT_APPLICABLE,
+                             NOT_APPLICABLE, NOT_APPLICABLE]],
                            columns=['#SampleID', 'env', 'alleged_probability',
                                     'Mislabeled', 'corrected_label'])
         exp.set_index('#SampleID', inplace=True)
@@ -48,8 +49,8 @@ class Tests(unittest.TestCase):
         env_df = pd.DataFrame([['foo', 'fecal', 0.6, 'False', 'fecal'],
                                ['bar', 'oral', 0.2, 'True', 'fecal'],
                                ['baz', 'skin', 0.4, 'False', 'skin'],
-                               ['extra', 'fecal', 'Not applicable',
-                                'Not applicable', 'Not applicable']],
+                               ['extra', 'fecal', NOT_APPLICABLE,
+                                NOT_APPLICABLE, NOT_APPLICABLE]],
                               columns=['#SampleID', 'env',
                                        'alleged_probability', 'Mislabeled',
                                        'corrected_label'])
@@ -66,12 +67,14 @@ class Tests(unittest.TestCase):
                           name='alleged_probability')
         below.index.name = '#SampleID'
 
-        exp = pd.DataFrame([['foo', 'fecal', 0.6, 'False', 'fecal', 0.7, 'False'],  # noqa
-                            ['bar', 'oral', 0.2, 'True', 'fecal', 0.2, 'Not applicable'],  # noqa
+        exp = pd.DataFrame([['foo', 'fecal', 0.6, 'False', 'fecal', 0.7,
+                             'False'],
+                            ['bar', 'oral', 0.2, 'True', 'fecal', 0.2,
+                             NOT_APPLICABLE],
                             ['baz', 'skin', 0.4, 'False', 'skin', 0.4, 'True'],
-                            ['extra', 'fecal', 'Not applicable',
-                             'Not applicable', 'Not applicable',
-                             'Not applicable', 'False']],
+                            ['extra', 'fecal', NOT_APPLICABLE,
+                             NOT_APPLICABLE, NOT_APPLICABLE,
+                             NOT_APPLICABLE, 'False']],
                            columns=['#SampleID', 'env', 'alleged_probability',
                                     'Mislabeled', 'corrected_label',
                                     'min_proportion', 'Contaminated'])

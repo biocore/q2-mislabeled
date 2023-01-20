@@ -57,10 +57,6 @@ gut_sample = tab.data(gut.index[3], dense=False)
 skin_sample = tab.data(skin.index[3], dense=False)
 oral_sample = tab.data(oral.index[3], dense=False)
 
-gut_sample.data = np.floor(gut_sample.data)
-skin_sample.data = np.floor(skin_sample.data)
-oral_sample.data = np.floor(oral_sample.data)
-
 tab.matrix_data[:, tab.index(gut.index[4], 'sample')] += skin_sample
 tab.matrix_data[:, tab.index(gut.index[5], 'sample')] += oral_sample
 

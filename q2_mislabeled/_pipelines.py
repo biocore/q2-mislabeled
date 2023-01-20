@@ -10,6 +10,8 @@ import pandas as pd
 import qiime2
 import biom
 
+NOT_APPLICABLE = 'not applicable'
+
 
 # defaults from HMP SOP
 # https://www.hmpdacc.org/hmp/doc/QiimeCommunityProfiling.pdf
@@ -34,7 +36,7 @@ def within_dataset(ctx, table, env, alleged_min_probability=0.25,
 
     # From the HMP SOP
     # Drop all OTUs present in less than 1% of the samples:
-    filttab, = feat_filter(raretab, min_samples=int(nsamp * 0.01))
+    filttab, = feat_filter(raretab, min_samples=min_samples)
     _, feat, prob = classifier(filttab, env, n_jobs=n_jobs)
     prob_df = prob.view(pd.DataFrame)
 
@@ -118,6 +120,7 @@ def against_dataset(ctx, focus, reference, focus_env, reference_env,
     foc_nfeat, foc_nsamp = focus.view(biom.Table).shape
     ref_min_samples = int(ref_nsamp * 0.01)
     foc_min_samples = int(foc_nsamp * 0.01)
+
     # From the HMP SOP
     # Rarefy OTU tables at depth 100 (n.b., classifier is faster now so
     # we use a depth of 1000):
@@ -196,7 +199,7 @@ def _set_mislabeled(env_df, prob_df, c, alleged_min_probability):
     # reported environment type. note that care has to be taken with the
     # possibility that samples were removed from the input table due to the
     # rarefaction procedure.
-    env_df['alleged_probability'] = 'Not applicable'
+    env_df['alleged_probability'] = NOT_APPLICABLE
     overlap = [i for i in env_df.index if i in prob_df.index]
     env_df.loc[overlap, 'alleged_probability'] = \
         [prob_df.loc[r.Index, getattr(r, c)]
@@ -206,7 +209,7 @@ def _set_mislabeled(env_df, prob_df, c, alleged_min_probability):
 
     is_mislabeled = prob_below_min[prob_below_min]
     is_not_mislabeled = prob_below_min[~prob_below_min]
-    env_df['Mislabeled'] = 'Not applicable'
+    env_df['Mislabeled'] = NOT_APPLICABLE
     env_df.loc[is_mislabeled.index, 'Mislabeled'] = True
     env_df.loc[is_not_mislabeled.index, 'Mislabeled'] = False
 
@@ -217,7 +220,7 @@ def _set_mislabeled(env_df, prob_df, c, alleged_min_probability):
     # record what we believe the correct label to be. for mislabeled samples,
     # pull the most probable label. For non-mislabeled samples, record the
     # original label
-    env_df['corrected_label'] = 'Not applicable'
+    env_df['corrected_label'] = NOT_APPLICABLE
     mislabeled = env_df[env_df['Mislabeled'] == 'True']
     notmislabeled = env_df[env_df['Mislabeled'] == 'False']
 
@@ -238,7 +241,7 @@ def _set_contamination(env_df, proportions_df, c, prob_below_min,
     # environment type. note that care has to be taken with the possibility
     # that samples were removed from the input table due to the rarefaction
     # procedure.
-    env_df['min_proportion'] = 'Not applicable'
+    env_df['min_proportion'] = NOT_APPLICABLE
     overlap = [i for i in env_df.index if i in proportions_df.index]
     env_df.loc[overlap, 'min_proportion'] = \
         [proportions_df.loc[r.Index, getattr(r, c)]
@@ -247,14 +250,14 @@ def _set_contamination(env_df, proportions_df, c, prob_below_min,
 
     # From the HMP SOP
     # Add 'Mislabeled' column to the final mapping file, with 'NA' (n.b., we
-    # use 'Not applicable') where mislabeling was not estimated (samples with <
+    # use NOT_APPLICABLE) where mislabeling was not estimated (samples with <
     # 1000 [sic] sequences), 'TRUE' when the estimated probability of the
     # alleged label was < .25, 'FALSE' otherwise. Add 'Contaminated' column
     # with 'NA' when 'Mislabeled' is 'TRUE' or 'NA', 'TRUE' when 'Mislabeled'
     # is FALSE and 'Max_Proportion_this_Env' < .6, and 'FALSE' otherwise.
     is_mislabeled = prob_below_min[prob_below_min]
     env_df['Contaminated'] = False
-    env_df.loc[is_mislabeled.index, 'Contaminated'] = 'Not applicable'
+    env_df.loc[is_mislabeled.index, 'Contaminated'] = NOT_APPLICABLE
     contaminated = comm_below_min & (~prob_below_min.loc[overlap])
     contaminated_samples = contaminated[contaminated]
     env_df.loc[contaminated_samples.index, 'Contaminated'] = True
