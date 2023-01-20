@@ -9,7 +9,7 @@ import unittest
 import pandas as pd
 import pandas.testing as pdt
 
-from q2_mislabeled._pipelines import (_set_mislabeled, _set_contamination
+from q2_mislabeled._pipelines import (_set_mislabeled, _set_contamination,
                                       NOT_APPLICABLE)
 
 
