@@ -18,5 +18,7 @@ setup(
         'q2_mislabeled.tests': [],
         'q2_mislabeled': []
     },
+    install_requires=['sourcetracker2 @ https://github.com/'
+                      'wasade/sourcetracker2/archive/be_sparse.zip'],
     zip_safe=False,
 )
