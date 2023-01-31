@@ -32,7 +32,7 @@ plugin.register_artifact_class(
     directory_format=TSVDirectoryFormat)
 
 plugin.pipelines.register_function(
-    name="Within dataset mislabelings",
+    name="Mislabelings within dataset",
     description="Identify mislabelings and contaminated samples within a "
                 "specific dataset based on the HMP SOP",
     function=q2_mislabeled.within_dataset,
@@ -60,7 +60,7 @@ plugin.pipelines.register_function(
 )
 
 plugin.pipelines.register_function(
-    name="Against dataset mislabelings",
+    name="Mislabelings against dataset",
     description="Identify mislabemings and contaminated samples using a "
                 "separate dataset as a reference.",
     function=q2_mislabeled.against_dataset,
