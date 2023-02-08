@@ -15,7 +15,11 @@ from ._format import TSVFormat
 @plugin.register_transformer
 def _1(ff: TSVFormat) -> pd.DataFrame:
     with ff.open() as fh:
-        df = pd.read_csv(fh, sep='\t').set_index('#SampleID')
+        df = pd.read_csv(fh, sep='\t', dtype=str).set_index('#SampleID')
+    df['alleged_probability'] = pd.to_numeric(df['alleged_probability'],
+                                              errors='coerce')
+    df['min_proportion'] = pd.to_numeric(df['min_proportion'],
+                                         errors='coerce')
     return df
 
 
