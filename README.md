@@ -8,6 +8,6 @@ Installation
 
 `q2-mislabeled` has been tested within a `2022.11` QIIME 2 environment. To install:
 
-```
+```bash
 $ pip install q2-mislabeled
 ```
